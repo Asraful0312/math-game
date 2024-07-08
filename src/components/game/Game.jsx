@@ -5,19 +5,20 @@ import {
   loveText,
   mediumCorrectText,
   wrongAnswerText,
-} from "../utils/messages";
+} from "../../utils/messages";
+import Header from "./Header";
+import Score from "./Score";
+import Question from "./Question";
+import Message from "./Message";
+import AnswerInput from "./AnswerInput";
+import SubmitButton from "./SubmitButton";
+import ResetButton from "./ResetButton";
+
 const easy = ["plus", "minus"];
 const medium = ["plus", "minus", "multiply"];
 const hard = ["plus", "minus", "multiply", "divide"];
 
-const Game = ({
-  setCurrentStep,
-  score,
-  difficulty,
-  setScore,
-  loveCount,
-  setLoveCount,
-}) => {
+const Game = ({ setCurrentStep, score, difficulty, setScore }) => {
   const [isSeeCorrectAns, setIsSeeCorrectAns] = useState(false);
   const [correctAns, setCorrectAns] = useState("");
   const [input, setInput] = useState("");
@@ -25,10 +26,11 @@ const Game = ({
   const [question, setQuestion] = useState({});
   const [operator, setOperator] = useState("");
   const [text, setText] = useState("");
+  const [inputKey, setInputKey] = useState(0);
+  const [scoreAdded, setScoreAdded] = useState(0);
+  const [isScoreAdded, setIsScoreAdded] = useState(false);
 
-  // generate questions
   const generateQuestions = () => {
-    // numbers
     const num1 =
       difficulty === "Easy"
         ? Math.floor(Math.random() * 100)
@@ -39,7 +41,7 @@ const Game = ({
         : Math.floor(Math.random() * 100);
     const num2 = Math.floor(Math.random() * (num1 + 1));
 
-    // operator
+    //
     const operator =
       difficulty === "Medium"
         ? medium[Math.floor(Math.random() * medium.length)]
@@ -52,7 +54,6 @@ const Game = ({
     setOperator(operator);
   };
 
-  // generate message when user gives correct answer
   const generateCorrectText = () => {
     if (input.toLowerCase() === "i love you") {
       const result = loveText[Math.floor(Math.random() * loveText.length)];
@@ -76,21 +77,24 @@ const Game = ({
     }
   };
 
-  // generate message when user gives wrong answer
   const generateWrongText = () => {
     const result =
       wrongAnswerText[Math.floor(Math.random() * wrongAnswerText.length)];
     setText(result);
   };
 
-  // generate a question when page is loaded
   useEffect(() => {
     generateQuestions();
-    // setScore(100);
+    // setScore(100);`
   }, []);
-  
 
-  //decide the operator 
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsScoreAdded(false);
+    }, 500);
+    return () => clearTimeout(timeout);
+  }, [scoreAdded, isScoreAdded]);
+
   const decideOperator = () => {
     let result;
     if (operator === "minus") {
@@ -105,19 +109,21 @@ const Game = ({
     return result;
   };
 
-  // calculate the correct answer
   const calculateAnswer = (e) => {
     e.preventDefault();
-
     setCorrectAns(Number(decideOperator().toFixed(2)));
-
     const isLove = input.toLowerCase() === "i love you";
-
     if (Number(decideOperator().toFixed(2)) !== Number(input)) {
       generateWrongText();
       if (isLove) {
         setText(loveText[Math.floor(Math.random() * loveText.length)]);
         setIsWrong(false);
+        setIsScoreAdded(
+          text === "I love you too 💕 I gave you 10 points as a gift 🎁"
+        );
+        setScoreAdded(
+          text === "I love you too 💕 I gave you 10 points as a gift 🎁" && 10
+        );
         setScore((prev) =>
           prev === 0
             ? 0
@@ -127,10 +133,21 @@ const Game = ({
         );
       } else {
         setScore((prev) => (prev === 0 ? 0 : prev - 1));
+        setIsScoreAdded(true);
+        setScoreAdded(score === 0 ? "-" + 0 : "-" + 1);
+        setInputKey((prevKey) => prevKey + 1);
         setIsWrong(true);
       }
     } else {
       setIsWrong(false);
+      setIsScoreAdded(true);
+      setScoreAdded(
+        difficulty === "Medium"
+          ? "+" + 2
+          : difficulty === "Hard"
+          ? "+" + 5
+          : "+" + 1
+      );
       setScore((prev) =>
         difficulty === "Medium"
           ? prev + 2
@@ -146,98 +163,37 @@ const Game = ({
 
   return (
     <div>
-      <h2
-        onClick={() => setCurrentStep(1)}
-        className="cursor-pointer text-2xl font-bold mb-10 underline text-center"
-      >
-        HOME
-      </h2>
-
-      <div className="flex flex-wrap gap-3 justify-between mb-6">
-        <h3 className="text-lg font-medium">
-          You selected <span className="text-blue-500">{difficulty}</span>{" "}
-          Difficulty
-        </h3>
-
-        <p className="font-medium text-lg">Score: {score}</p>
-      </div>
-
-      <p className="text-center mb-5">
-        <b>QUS:</b> What is <b>{question?.num1}</b>{" "}
-        <span
-          title={
-            operator === "plus"
-              ? "1 + 1 = 2"
-              : operator === "minus"
-              ? "1 - 1 = 0"
-              : operator === "multiply"
-              ? "2 * 2 = 4"
-              : "4 / 2 = 2"
-          }
-          className="text-blue-500 capitalize font-medium"
-        >
-          {operator}
-        </span>{" "}
-        by <b>{question?.num2}</b>
-      </p>
-
+      <Header setCurrentStep={setCurrentStep} />
+      <Score
+        isScoreAdded={isScoreAdded}
+        score={score}
+        scoreAdded={scoreAdded}
+        difficulty={difficulty}
+      />
+      <Question question={question} operator={operator} />
       <form onSubmit={calculateAnswer}>
-        {isWrong && (
-          <p className="mb-2">
-            <b className="text-red-500">MG:</b> {text}{" "}
-            <span
-              onClick={() => {
-                setInput(correctAns);
-                setIsSeeCorrectAns(true);
-              }}
-              className="text-blue-500 underline cursor-pointer"
-            >
-              See the correct answer
-            </span>
-          </p>
-        )}
-
-        {!isWrong && correctAns !== "" && (
-          <p className="mb-2">
-            {text !== "" && <b className="text-red-500">MG:</b>} {text}
-          </p>
-        )}
-        <input
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          className={`border w-full py-2 px-5 rounded outline-none  ${
-            isWrong ? "border-red-500 wrong-ans" : "border-blue-500"
-          }`}
-          placeholder="Put your answer 🤧"
-          required
-          type="text"
+        <Message
+          isWrong={isWrong}
+          text={text}
+          correctAns={correctAns}
+          setInput={setInput}
+          setIsSeeCorrectAns={setIsSeeCorrectAns}
         />
-        <div className="flex items-center justify-center mt-8">
-          <button
-            disabled={isSeeCorrectAns}
-            type="submit"
-            className="bg-blue-500 disabled:opacity-65 text-white py-2 px-5 rounded hover:opacity-90 transition-all duration-300"
-          >
-            {isSeeCorrectAns ? "Do Yourself 😛" : "Submit"}
-          </button>
-        </div>
+        <AnswerInput
+          inputKey={inputKey}
+          input={input}
+          setInput={setInput}
+          isWrong={isWrong}
+        />
+        <SubmitButton isSeeCorrectAns={isSeeCorrectAns} />
       </form>
-
-      {/* RESET */}
-      <div className="flex items-center justify-center">
-        <button
-          onClick={() => {
-            generateQuestions();
-            setInput("");
-            setIsWrong(false);
-            setIsSeeCorrectAns(false);
-            setText("");
-          }}
-          className="bg-slate-950 text-white py-2 px-5 rounded hover:opacity-90 transition-all duration-300 mt-5"
-        >
-          Try Another
-        </button>
-      </div>
+      <ResetButton
+        generateQuestions={generateQuestions}
+        setInput={setInput}
+        setIsWrong={setIsWrong}
+        setIsSeeCorrectAns={setIsSeeCorrectAns}
+        setText={setText}
+      />
     </div>
   );
 };

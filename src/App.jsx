@@ -1,6 +1,6 @@
 import DifficultySelect from "./components/DifficultySelect";
 import Warning from "./components/Warning";
-import Game from "./components/Game";
+import Game from "./components/game/Game";
 import { useEffect, useState } from "react";
 
 const steps = { 1: DifficultySelect, 2: Warning, 3: Game };
