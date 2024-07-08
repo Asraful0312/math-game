@@ -5,6 +5,7 @@ import {
   loveText,
   mediumCorrectText,
   wrongAnswerText,
+  hardWrongAnswer,
 } from "../../utils/messages";
 import Header from "./Header";
 import Score from "./Score";
@@ -18,7 +19,14 @@ const easy = ["plus", "minus"];
 const medium = ["plus", "minus", "multiply"];
 const hard = ["plus", "minus", "multiply", "divide"];
 
-const Game = ({ setCurrentStep, score, difficulty, setScore }) => {
+const Game = ({
+  setCurrentStep,
+  score,
+  difficulty,
+  setScore,
+  stats,
+  setStats,
+}) => {
   const [isSeeCorrectAns, setIsSeeCorrectAns] = useState(false);
   const [correctAns, setCorrectAns] = useState("");
   const [input, setInput] = useState("");
@@ -27,8 +35,10 @@ const Game = ({ setCurrentStep, score, difficulty, setScore }) => {
   const [operator, setOperator] = useState("");
   const [text, setText] = useState("");
   const [inputKey, setInputKey] = useState(0);
-  const [scoreAdded, setScoreAdded] = useState(0);
+  const [scoreAdded, setScoreAdded] = useState("");
   const [isScoreAdded, setIsScoreAdded] = useState(false);
+
+  console.log(stats);
 
   const generateQuestions = () => {
     const num1 =
@@ -78,14 +88,20 @@ const Game = ({ setCurrentStep, score, difficulty, setScore }) => {
   };
 
   const generateWrongText = () => {
-    const result =
-      wrongAnswerText[Math.floor(Math.random() * wrongAnswerText.length)];
-    setText(result);
+    if (difficulty === "Hard") {
+      const result =
+        hardWrongAnswer[Math.floor(Math.random() * hardWrongAnswer.length)];
+      setText(result);
+    } else {
+      const result =
+        wrongAnswerText[Math.floor(Math.random() * wrongAnswerText.length)];
+      setText(result);
+    }
   };
 
   useEffect(() => {
     generateQuestions();
-    // setScore(100);`
+    // setScore(1000);
   }, []);
 
   useEffect(() => {
@@ -112,29 +128,19 @@ const Game = ({ setCurrentStep, score, difficulty, setScore }) => {
   const calculateAnswer = (e) => {
     e.preventDefault();
     setCorrectAns(Number(decideOperator().toFixed(2)));
-    const isLove = input.toLowerCase() === "i love you";
+
+    const isLove = input.toLowerCase().trim() === "i love you";
+
     if (Number(decideOperator().toFixed(2)) !== Number(input)) {
       generateWrongText();
       if (isLove) {
         setText(loveText[Math.floor(Math.random() * loveText.length)]);
         setIsWrong(false);
-        setIsScoreAdded(
-          text === "I love you too 💕 I gave you 10 points as a gift 🎁"
-        );
-        setScoreAdded(
-          text === "I love you too 💕 I gave you 10 points as a gift 🎁" && 10
-        );
-        setScore((prev) =>
-          prev === 0
-            ? 0
-            : text === "I love you too 💕 I gave you 10 points as a gift 🎁"
-            ? prev + 10
-            : prev - 0
-        );
+        setScore((prev) => (prev === 0 ? 0 : prev - 0));
       } else {
         setScore((prev) => (prev === 0 ? 0 : prev - 1));
         setIsScoreAdded(true);
-        setScoreAdded(score === 0 ? "-" + 0 : "-" + 1);
+        setScoreAdded(score === 0 ? "-0" : "-1");
         setInputKey((prevKey) => prevKey + 1);
         setIsWrong(true);
       }
@@ -142,11 +148,7 @@ const Game = ({ setCurrentStep, score, difficulty, setScore }) => {
       setIsWrong(false);
       setIsScoreAdded(true);
       setScoreAdded(
-        difficulty === "Medium"
-          ? "+" + 2
-          : difficulty === "Hard"
-          ? "+" + 5
-          : "+" + 1
+        difficulty === "Medium" ? "+2" : difficulty === "Hard" ? "+5" : "+1"
       );
       setScore((prev) =>
         difficulty === "Medium"
@@ -173,6 +175,9 @@ const Game = ({ setCurrentStep, score, difficulty, setScore }) => {
       <Question question={question} operator={operator} />
       <form onSubmit={calculateAnswer}>
         <Message
+          setScore={setScore}
+          setIsScoreAdded={setIsScoreAdded}
+          setScoreAdded={setScoreAdded}
           isWrong={isWrong}
           text={text}
           correctAns={correctAns}

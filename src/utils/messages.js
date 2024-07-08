@@ -1,6 +1,7 @@
 export const easyCorrectText = [
   "That was easy even a dog can do this 😒",
   "Try harder difficulty if you can 😒",
+  "Try Hard difficulty BIG boy try Hard difficulty 😌",
   "That was for elementary school kids😒",
   "Not that impressive 🤥",
   "Did you break a sweat on that? 😏",
@@ -51,7 +52,7 @@ export const wrongAnswerText = [
   "Ouch, that was way off 😬",
   "You might want to brush up on your math skills 😅",
   "Better luck next time... hopefully 😒",
-  "Were you even paying attention? 🤨",
+  "That's why you should attend math class 😑",
   "I think you need more practice 🤥",
   "Not even close! 😳",
   "Let's aim for something closer to the right answer 😒",
@@ -61,8 +62,18 @@ export const wrongAnswerText = [
   "That was... interesting. Try again 😒",
 ];
 
+export const hardWrongAnswer = [
+  "Go Back to Easy Difficulty 😆",
+  "Maybe Hard difficulty isn't for you 🙄",
+  "Somehow you managed to unlock Hard difficulty but it still too hard for you 🫡",
+  "Comeback again again after more practice 🫤",
+  "Think more then answer 🫤",
+  "You need a Math teacher 😪",
+  "Were you even paying attention? 🤨",
+];
+
 export const loveText = [
-  "I love you too 💕 I gave you 10 points as a gift 🎁",
+  "I love you too 💕 Click the text to get a gift 🎁",
   "You are making me blush 🫣",
   "Should we get married? 💍",
   "You make my circuits flutter! 🤖💓",

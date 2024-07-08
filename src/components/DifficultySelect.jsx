@@ -11,8 +11,22 @@ const DifficultySelect = ({ setCurrentStep, setDifficulty, score }) => {
       <h1 className="text-3xl font-bold text-center">Select Difficulty</h1>
 
       <h2 className="font-medium text-center mt-3">
-        Your Score: <span className="text-blue-500">{score}</span>
+        Your Score:{" "}
+        <span
+          className={`font-semibold text-lg relative ${
+            score >= 20 && score < 100
+              ? "text-yellow-500"
+              : score >= 100 && score < 1000
+              ? "text-red-700"
+              : score >= 1000
+              ? "text-purple-700"
+              : "text-black"
+          }`}
+        >
+          {score}
+        </span>
       </h2>
+
       <div className=" mt-7 flex flex-col gap-3 font-semibold">
         {BUTTONS.map((b) => (
           <button
