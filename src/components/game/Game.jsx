@@ -101,7 +101,7 @@ const Game = ({
 
   useEffect(() => {
     generateQuestions();
-    // setScore(1000);
+    // setScore(10);
   }, []);
 
   useEffect(() => {
@@ -130,7 +130,6 @@ const Game = ({
     setCorrectAns(Number(decideOperator().toFixed(2)));
 
     const isLove = input.toLowerCase().trim() === "i love you";
-
     if (Number(decideOperator().toFixed(2)) !== Number(input)) {
       generateWrongText();
       if (isLove) {
@@ -185,6 +184,7 @@ const Game = ({
           setIsSeeCorrectAns={setIsSeeCorrectAns}
         />
         <AnswerInput
+          text={text}
           inputKey={inputKey}
           input={input}
           setInput={setInput}

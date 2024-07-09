@@ -44,10 +44,11 @@ const Message = ({
             }
             setScore((prev) => (isMatch ? prev + 10 : 0));
             setIsScoreAdded(true);
+            setInput(correctAns);
             setScoreAdded("+10");
             setClicked((prev) => prev + 1);
           }}
-          className="mb-2 disabled:opacity-65"
+          className="mb-2 disabled:opacity-65 select-none"
         >
           <b className="text-blue-500">MG:</b>{" "}
           {clicked === 5
