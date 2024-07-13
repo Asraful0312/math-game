@@ -1,7 +1,5 @@
 export const easyCorrectText = [
   "That was easy even a dog can do this 😒",
-  "Try harder difficulty if you can 😒",
-  "Try Hard difficulty BIG boy try Hard difficulty 😌",
   "That was for elementary school kids😒",
   "Not that impressive 🤥",
   "Did you break a sweat on that? 😏",
@@ -10,6 +8,17 @@ export const easyCorrectText = [
   "My pet hamster solved that faster 🐹",
   "Are you sure you want to stay on easy? 😒",
   "I expected more from you 😐",
+  "Is this supposed to be difficult? 🤔",
+  "That was a piece of cake 🍰",
+  "You're not even trying, are you? 😒",
+  "Did you really need help with that? 😅",
+  "Even my little sister could do that 😏",
+  "You're better than this, come on! 😑",
+  "Maybe try something more challenging? 🤨",
+  "You're just warming up, right? 😆",
+  "I could do this in your sleep 😴",
+  "I hope you're ready for something harder 🤞",
+  "That was a walk in the park 🏞️",
 ];
 
 export const mediumCorrectText = [

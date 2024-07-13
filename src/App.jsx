@@ -1,7 +1,7 @@
 import DifficultySelect from "./components/DifficultySelect";
 import Warning from "./components/Warning";
 import Game from "./components/game/Game";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const steps = { 1: DifficultySelect, 2: Warning, 3: Game };
 
@@ -21,12 +21,16 @@ const App = () => {
 
   const Step = steps[currentStep];
 
-  useEffect(() => {
+  const updateState = useCallback(() => {
     localStorage.setItem(
       "game",
       JSON.stringify({ step: currentStep, difficulty, score, loveCount, stats })
     );
   }, [currentStep, difficulty, score, loveCount, stats]);
+
+  useEffect(() => {
+    updateState();
+  }, [currentStep, difficulty, score, loveCount, stats, updateState]);
 
   return (
     <div className="flex items-center justify-center h-screen px-5">

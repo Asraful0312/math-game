@@ -19,14 +19,7 @@ const easy = ["plus", "minus"];
 const medium = ["plus", "minus", "multiply"];
 const hard = ["plus", "minus", "multiply", "divide"];
 
-const Game = ({
-  setCurrentStep,
-  score,
-  difficulty,
-  setScore,
-  stats,
-  setStats,
-}) => {
+const Game = ({ setCurrentStep, score, difficulty, setScore }) => {
   const [isSeeCorrectAns, setIsSeeCorrectAns] = useState(false);
   const [correctAns, setCorrectAns] = useState("");
   const [input, setInput] = useState("");
@@ -37,8 +30,15 @@ const Game = ({
   const [inputKey, setInputKey] = useState(0);
   const [scoreAdded, setScoreAdded] = useState("");
   const [isScoreAdded, setIsScoreAdded] = useState(false);
+  const [showTip, setShowTip] = useState(false);
 
-  console.log(stats);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setShowTip((prevShowTip) => !prevShowTip);
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const generateQuestions = () => {
     const num1 =
@@ -101,7 +101,7 @@ const Game = ({
 
   useEffect(() => {
     generateQuestions();
-    // setScore(10);
+    // setScore(20);
   }, []);
 
   useEffect(() => {
@@ -199,6 +199,17 @@ const Game = ({
         setIsSeeCorrectAns={setIsSeeCorrectAns}
         setText={setText}
       />
+      <p
+        className={`text-xs text-center text-gray-400 mt-5 transition-all duration-300${
+          showTip
+            ? "opacity-100 translate-y-0 visible"
+            : "translate-y-5 opacity-0 invisible"
+        }`}
+      >
+        Tip: If you want more score you can type "I love you" you will randomly
+        get this "I love you too 💕 Click the text to get a gift 🎁" text and
+        you can get 10 score points per click up to 50 score points.
+      </p>
     </div>
   );
 };

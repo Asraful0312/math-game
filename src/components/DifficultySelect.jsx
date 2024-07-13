@@ -15,7 +15,7 @@ const DifficultySelect = ({ setCurrentStep, setDifficulty, score }) => {
         <span
           className={`font-semibold text-lg relative ${
             score >= 20 && score < 100
-              ? "text-yellow-500"
+              ? "text-cyan-600"
               : score >= 100 && score < 1000
               ? "text-red-700"
               : score >= 1000
