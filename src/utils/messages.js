@@ -16,7 +16,7 @@ export const easyCorrectText = [
   "You're better than this, come on! 😑",
   "Maybe try something more challenging? 🤨",
   "You're just warming up, right? 😆",
-  "I could do this in your sleep 😴",
+  "I could do this in my sleep 😴",
   "I hope you're ready for something harder 🤞",
   "That was a walk in the park 🏞️",
 ];

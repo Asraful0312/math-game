@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  @apply bg-white text-black dark:bg-slate-950 dark:text-white transition-all duration-200;
+}
+
 .wrong-ans {
   animation: wrongAnsAnimation linear 0.3s;
 }
@@ -21,5 +25,55 @@
   }
   100% {
     transform: translateX(0);
+  }
+}
+
+.logo {
+  background-image: linear-gradient(
+    to right,
+    #60a5fa,
+    #fb923c,
+    #7e22ce,
+    #60a5fa
+  );
+  background-size: 200% auto;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  animation: shine 5s linear infinite;
+}
+
+.stats {
+  position: relative;
+}
+
+.stats::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-size: 200% auto;
+  margin: -3px;
+  border-radius: 4px;
+  background-image: linear-gradient(
+    to right,
+    #60a5fa,
+    #c026d3,
+    #ffff,
+    #5b21b6,
+    #db2777,
+    #60a5fa
+  );
+  z-index: -1;
+  animation: bgAnimation infinite 5s linear;
+}
+
+@keyframes bgAnimation {
+  to {
+    background-position: 200% center;
+  }
+}
+
+@keyframes shine {
+  to {
+    background-position: 200% center;
   }
 }

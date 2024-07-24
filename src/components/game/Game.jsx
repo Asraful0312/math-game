@@ -7,7 +7,6 @@ import {
   wrongAnswerText,
   hardWrongAnswer,
 } from "../../utils/messages";
-import Header from "./Header";
 import Score from "./Score";
 import Question from "./Question";
 import Message from "./Message";
@@ -19,7 +18,7 @@ const easy = ["plus", "minus"];
 const medium = ["plus", "minus", "multiply"];
 const hard = ["plus", "minus", "multiply", "divide"];
 
-const Game = ({ setCurrentStep, score, difficulty, setScore }) => {
+const Game = ({ setStats, stats, score, difficulty, setScore }) => {
   const [isSeeCorrectAns, setIsSeeCorrectAns] = useState(false);
   const [correctAns, setCorrectAns] = useState("");
   const [input, setInput] = useState("");
@@ -101,7 +100,7 @@ const Game = ({ setCurrentStep, score, difficulty, setScore }) => {
 
   useEffect(() => {
     generateQuestions();
-    // setScore(20);
+    // setScore(5000);
   }, []);
 
   useEffect(() => {
@@ -142,6 +141,7 @@ const Game = ({ setCurrentStep, score, difficulty, setScore }) => {
         setScoreAdded(score === 0 ? "-0" : "-1");
         setInputKey((prevKey) => prevKey + 1);
         setIsWrong(true);
+        handleWrongStatsChange();
       }
     } else {
       setIsWrong(false);
@@ -156,15 +156,75 @@ const Game = ({ setCurrentStep, score, difficulty, setScore }) => {
           ? prev + 5
           : prev + 1
       );
+      handleCorrectStatsChange();
       generateQuestions();
       generateCorrectText();
     }
     setInput("");
   };
 
+  const handleCorrectStatsChange = () => {
+    if (!stats) return;
+
+    if (difficulty === "Easy") {
+      setStats((prev) => ({
+        ...prev,
+        easy: {
+          ...prev?.easy,
+          correct: prev?.easy.correct + 1,
+        },
+      }));
+    } else if (difficulty === "Medium") {
+      setStats((prev) => ({
+        ...prev,
+        medium: {
+          ...prev?.medium,
+          correct: prev?.medium.correct + 1,
+        },
+      }));
+    } else if (difficulty === "Hard") {
+      setStats((prev) => ({
+        ...prev,
+        hard: {
+          ...prev?.hard,
+          correct: prev?.hard.correct + 1,
+        },
+      }));
+    }
+  };
+
+  const handleWrongStatsChange = () => {
+    if (!stats) return;
+
+    if (difficulty === "Easy") {
+      setStats((prev) => ({
+        ...prev,
+        easy: {
+          ...prev?.easy,
+          wrong: prev?.easy.wrong + 1,
+        },
+      }));
+    } else if (difficulty === "Medium") {
+      setStats((prev) => ({
+        ...prev,
+        medium: {
+          ...prev?.medium,
+          wrong: prev?.medium.wrong + 1,
+        },
+      }));
+    } else if (difficulty === "Hard") {
+      setStats((prev) => ({
+        ...prev,
+        hard: {
+          ...prev?.hard,
+          wrong: prev?.hard.wrong + 1,
+        },
+      }));
+    }
+  };
+
   return (
     <div>
-      <Header setCurrentStep={setCurrentStep} />
       <Score
         isScoreAdded={isScoreAdded}
         score={score}
@@ -200,7 +260,7 @@ const Game = ({ setCurrentStep, score, difficulty, setScore }) => {
         setText={setText}
       />
       <p
-        className={`text-xs text-center text-gray-400 mt-5 transition-all duration-300${
+        className={`text-sm text-center text-gray-400 mt-5 transition-all duration-300${
           showTip
             ? "opacity-100 translate-y-0 visible"
             : "translate-y-5 opacity-0 invisible"

@@ -21,14 +21,21 @@ const Score = ({ score, scoreAdded, difficulty, isScoreAdded }) => {
           className={`font-semibold text-lg relative ${
             score >= 20 && score < 100
               ? "text-cyan-600"
-              : score >= 100 && score < 1000
+              : score >= 100 && score < 500
               ? "text-red-700"
-              : score >= 1000
+              : score >= 500 && score < 1000
               ? "text-purple-700"
-              : "text-black"
+              : score >= 1000
+              ? "text-orange-400"
+              : "text-black dark:text-white"
           }`}
         >
-          {score}{" "}
+          {score}
+          {score >= 1000 && (
+            <span className="absolute -left-2 -top-[15px] -rotate-12 text-sm">
+              👑
+            </span>
+          )}
         </span>
         <span
           className={`transition-all duration-300 text-base absolute -right-3 -top-4 ${

@@ -16,14 +16,21 @@ const DifficultySelect = ({ setCurrentStep, setDifficulty, score }) => {
           className={`font-semibold text-lg relative ${
             score >= 20 && score < 100
               ? "text-cyan-600"
-              : score >= 100 && score < 1000
+              : score >= 100 && score < 500
               ? "text-red-700"
-              : score >= 1000
+              : score >= 500 && score < 1000
               ? "text-purple-700"
-              : "text-black"
+              : score >= 1000
+              ? "text-orange-400"
+              : "text-black dark:text-white"
           }`}
         >
           {score}
+          {score >= 1000 && (
+            <span className="absolute -left-2 -top-[15px] -rotate-12 text-sm">
+              👑
+            </span>
+          )}
         </span>
       </h2>
 
@@ -35,7 +42,7 @@ const DifficultySelect = ({ setCurrentStep, setDifficulty, score }) => {
               (b === "Medium" && score < 20) || (b === "Hard" && score < 100)
             }
             onClick={() => handleClick(b)}
-            className="w-full disabled:opacity-65 bg-blue-400 py-2 text-blue-950 rounded hover:opacity-90 transition-all duration-300 disabled:cursor-not-allowed"
+            className="w-full disabled:opacity-65 bg-blue-400 py-2 text-blue-950 rounded hover:opacity-90 transition-all duration-300 disabled:cursor-not-allowed relative"
           >
             {b === "Medium" && score < 20 ? (
               <span>Score 20 or more to unlock {b} difficulty </span>
@@ -43,6 +50,13 @@ const DifficultySelect = ({ setCurrentStep, setDifficulty, score }) => {
               <span>Score 100 or more to unlock {b} difficulty </span>
             ) : (
               b
+            )}
+            {b === "Medium" && score < 20 ? (
+              <span className="absolute -left-2 -top-3">🔒</span>
+            ) : b === "Hard" && score < 100 ? (
+              <span className="absolute -left-2 -top-3">🔒</span>
+            ) : (
+              ""
             )}
           </button>
         ))}

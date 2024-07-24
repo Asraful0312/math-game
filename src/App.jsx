@@ -2,6 +2,7 @@ import DifficultySelect from "./components/DifficultySelect";
 import Warning from "./components/Warning";
 import Game from "./components/game/Game";
 import { useCallback, useEffect, useState } from "react";
+import Header from "./components/game/Header";
 
 const steps = { 1: DifficultySelect, 2: Warning, 3: Game };
 
@@ -10,13 +11,21 @@ const App = () => {
   const [currentStep, setCurrentStep] = useState(data?.step || 1);
   const [difficulty, setDifficulty] = useState(data?.difficulty || "");
   const [score, setScore] = useState(data?.score || 0);
-  const [loveCount, setLoveCount] = useState(data?.loveCount || 0);
   const [stats, setStats] = useState(
-    data?.stats || [
-      { d: "Easy", completed: 0, wrong: 0 },
-      { d: "Medium", completed: 0, wrong: 0 },
-      { d: "Hard", completed: 0, wrong: 0 },
-    ]
+    data?.stats || {
+      easy: {
+        correct: 0,
+        wrong: 0,
+      },
+      medium: {
+        correct: 0,
+        wrong: 0,
+      },
+      hard: {
+        correct: 0,
+        wrong: 0,
+      },
+    }
   );
 
   const Step = steps[currentStep];
@@ -24,30 +33,31 @@ const App = () => {
   const updateState = useCallback(() => {
     localStorage.setItem(
       "game",
-      JSON.stringify({ step: currentStep, difficulty, score, loveCount, stats })
+      JSON.stringify({ step: currentStep, difficulty, score, stats })
     );
-  }, [currentStep, difficulty, score, loveCount, stats]);
+  }, [currentStep, difficulty, score, stats]);
 
   useEffect(() => {
     updateState();
-  }, [currentStep, difficulty, score, loveCount, stats, updateState]);
+  }, [currentStep, difficulty, score, stats, updateState]);
 
   return (
-    <div className="flex items-center justify-center h-screen px-5">
-      <div className="w-full max-w-md mx-auto">
-        <Step
-          stats={stats}
-          setStats={setStats}
-          setCurrentStep={setCurrentStep}
-          difficulty={difficulty}
-          setDifficulty={setDifficulty}
-          setScore={setScore}
-          score={score}
-          setLoveCount={setLoveCount}
-          loveCount={loveCount}
-        />
+    <main>
+      <Header setCurrentStep={setCurrentStep} stats={stats} />
+      <div className="flex items-center justify-center mt-20 mb-10 px-5">
+        <div className="w-full max-w-md mx-auto">
+          <Step
+            stats={stats}
+            setStats={setStats}
+            setCurrentStep={setCurrentStep}
+            difficulty={difficulty}
+            setDifficulty={setDifficulty}
+            setScore={setScore}
+            score={score}
+          />
+        </div>
       </div>
-    </div>
+    </main>
   );
 };
 
