@@ -5,6 +5,14 @@ const Stats = ({ setIsShow, stats, theme }) => {
   const totalWrong =
     stats?.easy?.wrong + stats?.medium?.wrong + stats?.hard?.wrong;
 
+  const easyCorrect = stats?.easy?.correct;
+  const mediumCorrect = stats?.medium?.correct;
+  const hardCorrect = stats?.hard?.correct;
+
+  const easyWrong = stats?.easy?.wrong;
+  const mediumWrong = stats?.medium?.wrong;
+  const hardWrong = stats?.hard?.wrong;
+
   return (
     <div
       onClick={(e) => e.stopPropagation()}
@@ -46,14 +54,14 @@ const Stats = ({ setIsShow, stats, theme }) => {
                 theme === "dark" ? "border-white/10" : "!border-gray-300"
               }`}
             >
-              {stats?.easy?.wrong}
+              {Number(easyWrong) || 0}
             </td>
             <td
               className={`text-green-500 py-2 border border-white/10 ${
                 theme === "dark" ? "border-white/10" : "!border-gray-300"
               }`}
             >
-              {stats?.easy?.correct}
+              {Number(easyCorrect) || 0}
             </td>
           </tr>
 
@@ -70,14 +78,14 @@ const Stats = ({ setIsShow, stats, theme }) => {
                 theme === "dark" ? "border-white/10" : "!border-gray-300"
               }`}
             >
-              {stats?.medium?.wrong}
+              {Number(mediumWrong) || 0}
             </td>
             <td
               className={`text-green-500 py-2 border border-white/10 ${
                 theme === "dark" ? "border-white/10" : "!border-gray-300"
               }`}
             >
-              {stats?.medium?.correct}
+              {Number(mediumCorrect) || 0}
             </td>
           </tr>
 
@@ -94,21 +102,21 @@ const Stats = ({ setIsShow, stats, theme }) => {
                 theme === "dark" ? "border-white/10" : "!border-gray-300"
               }`}
             >
-              {stats?.hard?.wrong}
+              {Number(hardWrong) || 0}
             </td>
             <td
               className={`text-green-500 py-2 border border-white/10 ${
                 theme === "dark" ? "border-white/10" : "!border-gray-300"
               }`}
             >
-              {stats?.hard?.correct}
+              {Number(hardCorrect) || 0}
             </td>
           </tr>
         </tbody>
       </table>
       <div className="flex items-center justify-between w-full text-sm mt-7">
-        <h2>Total Correct: {totalCorrect}</h2>
-        <h2>Total Wrong: {totalWrong}</h2>
+        <h2>Total Correct: {Number(totalCorrect) || 0}</h2>
+        <h2>Total Wrong: {Number(totalWrong) || 0}</h2>
       </div>
     </div>
   );
