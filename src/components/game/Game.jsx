@@ -169,7 +169,7 @@ const Game = ({ setStats, stats, score, difficulty, setScore }) => {
         ...prev,
         easy: {
           ...prev?.easy,
-          correct: prev?.easy.correct + 1,
+          correct: prev?.easy?.correct + 1,
         },
       }));
     } else if (difficulty === "Medium") {
@@ -177,7 +177,7 @@ const Game = ({ setStats, stats, score, difficulty, setScore }) => {
         ...prev,
         medium: {
           ...prev?.medium,
-          correct: prev?.medium.correct + 1,
+          correct: prev?.medium?.correct + 1,
         },
       }));
     } else if (difficulty === "Hard") {
@@ -185,7 +185,7 @@ const Game = ({ setStats, stats, score, difficulty, setScore }) => {
         ...prev,
         hard: {
           ...prev?.hard,
-          correct: prev?.hard.correct + 1,
+          correct: prev?.hard?.correct + 1,
         },
       }));
     }

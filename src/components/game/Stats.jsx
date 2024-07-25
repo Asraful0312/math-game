@@ -134,9 +134,9 @@ const generateMessage = (stats) => {
   ) {
     message = <p className="text-center">Master of Medium Difficulty👨‍🏫</p>;
   } else if (
-    stats.hard.correct >= 100 &&
-    stats.hard.correct > easyCorrect &&
-    stats.hard.correct > mediumCorrect
+    hardCorrect >= 100 &&
+    hardCorrect > easyCorrect &&
+    hardCorrect > mediumCorrect
   ) {
     message = <p className="text-center">King of Hard Difficulty🤴</p>;
   }
