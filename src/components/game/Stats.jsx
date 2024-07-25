@@ -1,10 +1,4 @@
 const Stats = ({ setIsShow, stats, theme }) => {
-  const totalCorrect =
-    stats?.easy?.correct + stats?.medium?.correct + stats?.hard?.correct;
-
-  const totalWrong =
-    stats?.easy?.wrong + stats?.medium?.wrong + stats?.hard?.wrong;
-
   const easyCorrect = stats?.easy?.correct;
   const mediumCorrect = stats?.medium?.correct;
   const hardCorrect = stats?.hard?.correct;
@@ -12,6 +6,10 @@ const Stats = ({ setIsShow, stats, theme }) => {
   const easyWrong = stats?.easy?.wrong;
   const mediumWrong = stats?.medium?.wrong;
   const hardWrong = stats?.hard?.wrong;
+
+  const totalCorrect = easyCorrect + mediumCorrect + hardCorrect;
+
+  const totalWrong = easyWrong + mediumWrong + hardWrong;
 
   return (
     <div
