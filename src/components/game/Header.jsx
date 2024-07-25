@@ -52,9 +52,9 @@ const Header = ({ setCurrentStep, stats }) => {
           onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
         >
           {theme === "dark" ? (
-            <MoonIcon className="size-4" />
+            <MoonIcon className="size-5" />
           ) : (
-            <SunIcon className="size-4 text-yellow-500" />
+            <SunIcon className="size-5 text-yellow-500" />
           )}
         </button>
       </div>

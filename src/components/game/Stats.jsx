@@ -26,7 +26,7 @@ const Stats = ({ setIsShow, stats, theme }) => {
           x
         </span>
       </div>
-      {generateMessage(stats)}
+      {/* {generateMessage(stats)} */}
       <table className="table-auto w-full mt-6">
         <thead
           className={`w-full py-2 ${
@@ -122,29 +122,29 @@ const Stats = ({ setIsShow, stats, theme }) => {
 
 export default Stats;
 
-const generateMessage = (stats) => {
-  let message;
-  const easyCorrect = stats?.easy?.correct;
-  const mediumCorrect = stats?.medium?.correct;
-  const hardCorrect = stats?.hard?.correct;
-  if (
-    easyCorrect >= 100 &&
-    easyCorrect > mediumCorrect &&
-    easyCorrect > hardCorrect
-  ) {
-    message = <p className="text-center">Hero of Easy Difficulty🤡</p>;
-  } else if (
-    mediumCorrect >= 100 &&
-    mediumCorrect > easyCorrect &&
-    mediumCorrect > hardCorrect
-  ) {
-    message = <p className="text-center">Master of Medium Difficulty👨‍🏫</p>;
-  } else if (
-    hardCorrect >= 100 &&
-    hardCorrect > easyCorrect &&
-    hardCorrect > mediumCorrect
-  ) {
-    message = <p className="text-center">King of Hard Difficulty🤴</p>;
-  }
-  return message;
-};
+// const generateMessage = (stats) => {
+//   let message;
+//   const easyCorrect = stats?.easy?.correct;
+//   const mediumCorrect = stats?.medium?.correct;
+//   const hardCorrect = stats?.hard?.correct;
+//   if (
+//     easyCorrect >= 100 &&
+//     easyCorrect > mediumCorrect &&
+//     easyCorrect > hardCorrect
+//   ) {
+//     message = <p className="text-center">Hero of Easy Difficulty🤡</p>;
+//   } else if (
+//     mediumCorrect >= 100 &&
+//     mediumCorrect > easyCorrect &&
+//     mediumCorrect > hardCorrect
+//   ) {
+//     message = <p className="text-center">Master of Medium Difficulty👨‍🏫</p>;
+//   } else if (
+//     hardCorrect >= 100 &&
+//     hardCorrect > easyCorrect &&
+//     hardCorrect > mediumCorrect
+//   ) {
+//     message = <p className="text-center">King of Hard Difficulty🤴</p>;
+//   }
+//   return message;
+// };
