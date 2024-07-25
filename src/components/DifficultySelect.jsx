@@ -35,7 +35,7 @@ const DifficultySelect = ({ setCurrentStep, setDifficulty, score }) => {
       </h2>
 
       <div className=" mt-7 flex flex-col gap-3 font-semibold">
-        {BUTTONS.map((b) => (
+        {BUTTONS?.map((b) => (
           <button
             key={b}
             disabled={

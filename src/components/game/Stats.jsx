@@ -1,8 +1,9 @@
 const Stats = ({ setIsShow, stats, theme }) => {
   const totalCorrect =
-    stats.easy.correct + stats?.medium.correct + stats.hard.correct;
+    stats?.easy?.correct + stats?.medium?.correct + stats?.hard?.correct;
 
-  const totalWrong = stats?.easy.wrong + stats.medium.wrong + stats.hard.wrong;
+  const totalWrong =
+    stats?.easy?.wrong + stats?.medium?.wrong + stats?.hard?.wrong;
 
   return (
     <div
@@ -117,22 +118,25 @@ export default Stats;
 
 const generateMessage = (stats) => {
   let message;
+  const easyCorrect = stats?.easy?.correct;
+  const mediumCorrect = stats?.medium?.correct;
+  const hardCorrect = stats?.hard?.correct;
   if (
-    stats.easy.correct >= 100 &&
-    stats.easy.correct > stats.medium.correct &&
-    stats.easy.correct > stats.hard.correct
+    easyCorrect >= 100 &&
+    easyCorrect > mediumCorrect &&
+    easyCorrect > hardCorrect
   ) {
     message = <p className="text-center">Hero of Easy Difficulty🤡</p>;
   } else if (
-    stats.medium.correct >= 100 &&
-    stats.medium.correct > stats.easy.correct &&
-    stats.medium.correct > stats.hard.correct
+    mediumCorrect >= 100 &&
+    mediumCorrect > easyCorrect &&
+    mediumCorrect > hardCorrect
   ) {
     message = <p className="text-center">Master of Medium Difficulty👨‍🏫</p>;
   } else if (
     stats.hard.correct >= 100 &&
-    stats.hard.correct > stats.easy.correct &&
-    stats.hard.correct > stats.medium.correct
+    stats.hard.correct > easyCorrect &&
+    stats.hard.correct > mediumCorrect
   ) {
     message = <p className="text-center">King of Hard Difficulty🤴</p>;
   }
