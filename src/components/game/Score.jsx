@@ -47,7 +47,7 @@ const Score = ({ score, scoreAdded, difficulty, isScoreAdded }) => {
           }`}
         >
           {scoreAdded}
-        </span>{" "}
+        </span>
       </p>
     </div>
   );

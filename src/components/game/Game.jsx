@@ -164,8 +164,6 @@ const Game = ({ setStats, stats, score, difficulty, setScore }) => {
   };
 
   const handleCorrectStatsChange = () => {
-    if (!stats) return;
-
     if (difficulty === "Easy") {
       setStats((prev) => ({
         ...prev,
@@ -194,14 +192,12 @@ const Game = ({ setStats, stats, score, difficulty, setScore }) => {
   };
 
   const handleWrongStatsChange = () => {
-    if (!stats) return;
-
     if (difficulty === "Easy") {
       setStats((prev) => ({
         ...prev,
         easy: {
           ...prev?.easy,
-          wrong: prev?.easy.wrong + 1,
+          wrong: prev?.easy?.wrong + 1,
         },
       }));
     } else if (difficulty === "Medium") {
@@ -209,7 +205,7 @@ const Game = ({ setStats, stats, score, difficulty, setScore }) => {
         ...prev,
         medium: {
           ...prev?.medium,
-          wrong: prev?.medium.wrong + 1,
+          wrong: prev?.medium?.wrong + 1,
         },
       }));
     } else if (difficulty === "Hard") {
@@ -217,7 +213,7 @@ const Game = ({ setStats, stats, score, difficulty, setScore }) => {
         ...prev,
         hard: {
           ...prev?.hard,
-          wrong: prev?.hard.wrong + 1,
+          wrong: prev?.hard?.wrong + 1,
         },
       }));
     }

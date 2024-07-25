@@ -1,8 +1,8 @@
 const Stats = ({ setIsShow, stats, theme }) => {
   const totalCorrect =
-    stats.easy.correct + stats.medium.correct + stats.hard.correct;
+    stats.easy.correct + stats?.medium.correct + stats.hard.correct;
 
-  const totalWrong = stats.easy.wrong + stats.medium.wrong + stats.hard.wrong;
+  const totalWrong = stats?.easy.wrong + stats.medium.wrong + stats.hard.wrong;
 
   return (
     <div
