@@ -22,7 +22,7 @@ const DifficultySelect = ({ setCurrentStep, setDifficulty, score }) => {
               ? "text-purple-700"
               : score >= 1000
               ? "text-orange-400"
-              : "text-black dark:text-white"
+              : "text-lime-500"
           }`}
         >
           {score}

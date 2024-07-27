@@ -1,4 +1,9 @@
-const Stats = ({ setIsShow, stats, theme }) => {
+import { useState } from "react";
+
+const Stats = ({ setIsShow, theme }) => {
+  const data = JSON.parse(localStorage.getItem("game"));
+  const { stats } = data || {};
+
   const easyCorrect = stats?.easy?.correct;
   const mediumCorrect = stats?.medium?.correct;
   const hardCorrect = stats?.hard?.correct;
